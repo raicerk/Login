@@ -38,5 +38,9 @@ namespace Login.Controllers
 
             return Json(new { Lista = NuevaLista });
         }
+
+        public ActionResult Register() {
+            return View();
+        }
     }
 }
