@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,27 @@ namespace Login.Controllers
 
         public ActionResult Login()
         {
+            string NuevaLista = "";
+            Models.Home ho = new Models.Home();
+            ho.Cadena = "a,b,c,d";
+            foreach (DataRow item in ho.ListaContrasena().Rows)
+            {
+                NuevaLista += "<li><a href='#" + item["palabra"] + "'>" + item["palabra"] +"</a></li>";
+            }
+            ViewBag.Lista = NuevaLista;
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult CargaLista(Models.Home ho) {
+
+            string NuevaLista = "";
+            foreach (DataRow item in ho.ListaContrasena().Rows)
+            {
+                NuevaLista += "<li><a href='#" + item["palabra"] + "'>" + item["palabra"] + "</a></li>";
+            }
+
+            return Json(new { Lista = NuevaLista });
         }
     }
 }
