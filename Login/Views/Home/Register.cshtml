@@ -4,7 +4,108 @@
     Layout = null;
 }
 
-<h2>Register</h2>
 
-codigo del nuevo registro
+@{
+    Layout = null;
+}
 
+
+<!DOCTYPE html>
+<html lang="es-cl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Raicerk Incorporated</title>
+
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/custom.css" rel="stylesheet">
+</head>
+
+<body style="background:#F7F7F7;">
+    <div class="">
+        <a class="hiddenanchor" id="toregister"></a>
+        <a class="hiddenanchor" id="tologin"></a>
+
+        <div id="wrapper">
+            <div id="login" class="form">
+                <section class="login_content">
+                    <form>
+                        <h1>Registro</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Usuario" name="txtUsuario" id="txtUsuario" required="" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Contraseña" required="" id="txtContrasena" name="txtContrasena"/>
+                        </div>
+                        <div>
+                            <a class="btn btn-default submit" href="javascript:void(0);" onclick="Enviar()">Registrarse</a>
+                            <a class="reset_pass" href="#">Olvidaste tu contraseña?</a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="separator">
+
+                            <p class="change_link">
+                                Nuevo en este sitio?
+                                <a href="#toregister" class="to_register"> Crear cuenta </a>
+                            </p>
+                            <div class="clearfix"></div>
+                            <br />
+                            <div>
+                                <h1><i class="fa fa-share-alt" style="font-size: 26px;"></i> Raicerk Incorporated</h1>
+
+                                <p>©2016 todos los derechos reservados. Raicerk Incorporated. Terminos y condiciones</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script>
+
+        function Home() {
+            var self = this;
+            self.Usuario = $("#txtUsuario").val();
+            self.Contrasena = $("#txtContrasena").val();
+        }
+
+        function Enviar() {
+
+            var home = new Home();
+
+            jQuery.ajax({
+                type: "POST",
+                url: '@Url.Action("CreaUsuario")',
+                data: JSON.stringify(home),
+                datatype: "JSON",
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+
+                },
+                success: function (returndata) {
+                    if (returndata.Ok) {
+                        alert("Usuario Creado correctamente");
+                    } else {
+                        alert("Error al crear usuario");
+                    }
+                }
+            });
+        }
+    </script>
+
+
+
+</body>
+</html>

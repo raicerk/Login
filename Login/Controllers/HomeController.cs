@@ -42,5 +42,10 @@ namespace Login.Controllers
         public ActionResult Register() {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult CreaUsuario(Models.Home home) {
+            return Json(new {Ok = home.CreaUsuario() });
+        }
     }
 }
