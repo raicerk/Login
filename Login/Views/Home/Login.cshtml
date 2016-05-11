@@ -106,16 +106,7 @@
 
         function Enviar() {
 
-            var valor = "";
-            var palabra = $("#txtUsuario").val();
-            var letras = palabra.split("");
-            for (i in letras) {
-                valor += letras[i] + ',';
-            }
-
-
-            var home = new Home(valor);
-
+            var home = new Home($("#txtUsuario").val());
 
             jQuery.ajax({
                 type: "POST",
