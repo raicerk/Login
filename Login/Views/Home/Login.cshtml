@@ -103,7 +103,7 @@
             self.Contrasena = contrasena;
             self.Cadena = cadena;
         }
-        
+
         function Enviar() {
 
             var home = new Home($("#txtUsuario").val(),1);
@@ -137,7 +137,7 @@
 
 
         function rescata(palabra) {
-            
+
             var nueva = "";
             var actual = $("#txtContrasena").val();
             nueva = actual + "," + palabra;
@@ -156,14 +156,16 @@
                     beforeSend: function () {
                     },
                     success: function (returndata) {
-                        //$("#CvDatos").html(returndata.Lista);
+                        if (returndata.ok) {
+                            location.href = '@Url.Action("Index")';
+                        }
                     }
                 });
             }
         }
 
 
-        
+
     </script>
 
 
