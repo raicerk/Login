@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Raicerk Incorporated</title>
+    <title>RandLogin :: Raicerk</title>
 
     <!-- Bootstrap -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
@@ -52,6 +52,8 @@
                         </div>
                         <div>
                             <a class="btn btn-default submit" href="javascript:void(0);" onclick="Enviar()">Iniciar sesión</a>
+                            <input type="hidden" name="txtContrasena" id="txtContrasena" />
+                            <input type="hidden" name="txtContador" id="txtContador" value="0"/>
                             <a class="reset_pass" href="#">Olvidaste tu contraseña?</a>
                         </div>
                         <div class="clearfix"></div>
@@ -96,17 +98,15 @@
 
     <script>
 
-        function Home(cadena) {
+        function Home(cadena,contrasena) {
             var self = this;
+            self.Contrasena = contrasena;
             self.Cadena = cadena;
         }
         
-
-
-
         function Enviar() {
 
-            var home = new Home($("#txtUsuario").val());
+            var home = new Home($("#txtUsuario").val(),1);
 
             jQuery.ajax({
                 type: "POST",
@@ -133,6 +133,36 @@
         $("#txtUsuario").keyup(function () {
             Enviar();
         });
+
+
+
+        function rescata(palabra) {
+            
+            var nueva = "";
+            var actual = $("#txtContrasena").val();
+            nueva = actual + "," + palabra;
+            $("#txtContrasena").val(nueva);
+            contador = parseInt($("#txtContador").val())+1;
+            $("#txtContador").val(contador);
+            if (contador == '8') {
+                alert("ahora!!");
+                var home = new Home($("#txtUsuario").val(),nueva);
+                jQuery.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CargaCadenas")',
+                    data: JSON.stringify(home),
+                    datatype: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function () {
+                    },
+                    success: function (returndata) {
+                        //$("#CvDatos").html(returndata.Lista);
+                    }
+                });
+            }
+        }
+
+
         
     </script>
 

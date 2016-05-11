@@ -42,5 +42,19 @@ namespace Login.Models
                 return false;
             }
         }
+
+        public bool CargaCadenas() {
+            bool estado = false;
+            DataTable dt = new DataTable();
+            Dictionary<string, string> Data = new Dictionary<string, string>();
+            Data.Add("@Usuario", this.Cadena);
+            Data.Add("@Contrasena", this.Contrasena);
+            dt = SQLSERVER.Query("login","spRec_Login_ValidaUsuario",Data,dt);
+            foreach (DataRow item in dt.Rows)
+            {
+                estado = bool.Parse(item["Validado"].ToString());
+            }
+            return estado;
+        }
     }
 }

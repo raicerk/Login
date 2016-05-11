@@ -1709,7 +1709,7 @@ TCproto.Load = function() {
   }
   if(this.noTagsMessage && !taglist.length) {
     i = (this.imageMode && this.imageMode != 'both' ? this.imageMode + ' ': '');
-    taglist = this.Message('No ' + i + 'tags');
+    taglist = this.Message('Sin' + i + ' usuario');
   }
   this.taglist = taglist;
 };
