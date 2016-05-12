@@ -11,11 +11,21 @@ namespace Login.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (string.IsNullOrEmpty(Session["Usuario"].ToString()))
+            {
+                return View("Login");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         public ActionResult Login()
         {
+            Session["Usuario"] = "";
+
             string NuevaLista = "";
             Models.Home ho = new Models.Home();
             ho.Cadena = "a,b,c,d";
@@ -49,7 +59,16 @@ namespace Login.Controllers
         }
 
         public JsonResult CargaCadenas(Models.Home hom) {
-            return Json(new { ok = hom.CargaCadenas()});
+            bool estado = hom.CargaCadenas();
+            if (estado)
+            {
+                Session["Usuario"] = hom.Cadena;
+            }
+            else
+            {
+                Session["Usuario"] = "";
+            }
+            return Json(new { ok = estado});
         }
     }
 }

@@ -145,6 +145,7 @@
             contador = parseInt($("#txtContador").val())+1;
             $("#txtContador").val(contador);
             if (contador == '8') {
+                $("#txtContador").val(0);
                 alert("ahora!!");
                 var home = new Home($("#txtUsuario").val(),nueva);
                 jQuery.ajax({
