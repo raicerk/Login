@@ -146,7 +146,6 @@
             $("#txtContador").val(contador);
             if (contador == '8') {
                 $("#txtContador").val(0);
-                alert("ahora!!");
                 var home = new Home($("#txtUsuario").val(),nueva);
                 jQuery.ajax({
                     type: "POST",
@@ -159,10 +158,13 @@
                     success: function (returndata) {
                         if (returndata.ok) {
                             location.href = '@Url.Action("Index")';
+                        } else {
+                            $("#txtContrasena").val();
+                            alert("La contraseña ingresada es invalida, intente nuevamente");
                         }
                     }
                 });
-            }
+            } 
         }
 
 
